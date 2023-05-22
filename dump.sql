@@ -95,7 +95,7 @@ CREATE TABLE public.users (
     name character varying(40) NOT NULL,
     email text NOT NULL,
     password text NOT NULL,
-    "createAt" timestamp without time zone DEFAULT now()
+    "createdAt" timestamp without time zone DEFAULT now()
 );
 
 
@@ -144,9 +144,6 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.sessions VALUES (3, '2023-05-22 12:47:03.650628', 1, 'eyJhbGciOiJIUzI1NiJ9.aGFyZEBoYXJkLmNvbQ.DqELXm6Ihkb1qnjP4GK5MfXBdEWiNCRGVkhnrlx793Y');
-INSERT INTO public.sessions VALUES (4, '2023-05-22 12:47:26.472602', 1, 'eyJhbGciOiJIUzI1NiJ9.aGFyZEBoYXJkLmNvbQ.DqELXm6Ihkb1qnjP4GK5MfXBdEWiNCRGVkhnrlx793Y');
-INSERT INTO public.sessions VALUES (5, '2023-05-22 12:49:18.552609', 1, 'eyJhbGciOiJIUzI1NiJ9.MQ.ZxhcWQVZdrdzkUpQ9VOhy6vIW3EkHP6buoVOvyKyyPs');
 
 
 --
@@ -159,14 +156,13 @@ INSERT INTO public.sessions VALUES (5, '2023-05-22 12:49:18.552609', 1, 'eyJhbGc
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'Hugo', 'hard@hard.com', '$2b$10$g/G1ow4/iplGrcSaZJrzA.zGEtpMrJVIZrWsNpBTsIo0mjFLK31Vi', '2023-05-22 10:46:39.629626');
 
 
 --
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 5, true);
+SELECT pg_catalog.setval('public.sessions_id_seq', 1, false);
 
 
 --
@@ -180,7 +176,7 @@ SELECT pg_catalog.setval('public.urls_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 1, false);
 
 
 --

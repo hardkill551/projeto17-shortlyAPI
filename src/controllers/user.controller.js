@@ -21,8 +21,10 @@ export async function signIn(req, res) {
   
   try {
     const user = await getUserRepository(email);
+    console.log(user.rows)
+    if(user.rowCount !== 1 ) return res.send(401)
     const valid = bcrypt.compareSync(password, user.rows[0].password);
-    if (user.rowCount !== 1 || !valid) return res.send(401);
+    if (!valid) return res.send(401);
     const secretKey = process.env.SECRET_KEY;
     const token = jwt.sign(user.rows[0].id, secretKey);
     await insertSession(token, user.rows[0].id)
