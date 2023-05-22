@@ -9,6 +9,12 @@ export async function insertUrlShort(url, shortUrl, userId){
     export async function getUrlShortById(id){
         return db.query('SELECT id, "shortUrl", url FROM urls WHERE id = $1', [id]);
     }
+    export async function getUrlShortByIdComplete(id){
+        return db.query('SELECT "userId" FROM urls WHERE id = $1', [id]);
+    }
     export async function updateUrl(id){
         return db.query('UPDATE urls SET "visitCount" = "visitCount" + 1 WHERE id = $1', [id]);
+    }
+    export async function deleteShortUrl(id){
+        return db.query('DELETE FROM urls WHERE id = $1', [id]);
     }

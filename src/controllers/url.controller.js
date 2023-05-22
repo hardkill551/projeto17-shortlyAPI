@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { getUrlShort, getUrlShortById, insertUrlShort, updateUrl } from "../repositories/url.repository.js";
+import { deleteShortUrl, getUrlShort, getUrlShortById, getUrlShortByIdComplete, insertUrlShort, updateUrl } from "../repositories/url.repository.js";
 
 export async function urlShorten(req, res) {
   const { url } = req.body;
@@ -32,9 +32,26 @@ export async function redirectUrl(req, res) {
         if(shorturl.rowCount===0) return res.sendStatus(404)
         const url = await getUrlShortById(shorturl.rows[0].id)
         await updateUrl(url.rows[0].id)
-        console.log("oi")
         res.redirect(url.rows[0].url)
     } catch (err) {
       res.status(500).send(err.message);
     }
   }
+
+
+export async function deleteUrl(req,res){
+    const { id } = req.params;
+    try {
+        const userId = res.locals.userId;
+        const url = await getUrlShortByIdComplete(id)
+        console.log(userId)
+        if (url.rowCount === 0) return res.sendStatus(404)
+        if(url.rows[0].userId!==Number(userId)) return res.sendStatus(401)
+        
+        await deleteShortUrl(id)
+        res.sendStatus(204)
+
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
+}
