@@ -36,7 +36,6 @@ export async function signIn(req, res) {
 export async function userMe(req, res) {
   try {
     const userId = res.locals.userId;
-    
     const short = await getShortById(userId)
     const user = await getUserById(userId)
     const completeuser = {...user.rows[0], shortenedUrls:short.rows}

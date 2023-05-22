@@ -1,4 +1,4 @@
 import db from '../database/database.connetion.js';
 export async function getLinks(){
-    return db.query(`SELECT users.id, users.name, COUNT() AS "linksCount" FROM sessions WHERE token = $1 AND "userId" = $2`,[token, user])
+    return db.query(`SELECT users.id, users.name, COUNT(urls) AS "linksCount", SUM(urls."visitCount") AS "visitCount" FROM users JOIN urls ON users.id = urls."userId" GROUP BY users.id ORDER BY "visitCount" DESC LIMIT 10 `,[])
     }
