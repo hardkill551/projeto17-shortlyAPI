@@ -1,4 +1,4 @@
-import { insertUser, getUserRepository } from "../repositories/user.repository.js";
+import { insertUser, getUserRepository, getUserById } from "../repositories/user.repository.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { insertSession } from "../repositories/session.repository.js";
@@ -28,6 +28,17 @@ export async function signIn(req, res) {
     const token = jwt.sign(user.rows[0].id, secretKey);
     await insertSession(token, user.rows[0].id)
     res.status(200).send({ token: token });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+}
+
+export async function userMe(req, res) {
+  try {
+    const userId = res.locals.userId;
+    
+    const user = await getUserById(userId)
+    console.log(user.rows)
   } catch (err) {
     res.status(500).send(err);
   }
