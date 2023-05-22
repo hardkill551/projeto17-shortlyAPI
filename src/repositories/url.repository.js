@@ -4,5 +4,11 @@ export async function insertUrlShort(url, shortUrl, userId){
     }
 
     export async function getUrlShort(shortUrl){
-        return db.query('SELECT * FROM urls WHERE "shortUrl" = $1', [shortUrl]);
+        return db.query('SELECT id, "shortUrl" FROM urls WHERE "shortUrl" = $1', [shortUrl]);
+    }
+    export async function getUrlShortById(id){
+        return db.query('SELECT id, "shortUrl", url FROM urls WHERE id = $1', [id]);
+    }
+    export async function updateUrl(id){
+        return db.query('UPDATE urls SET "visitCount" = "visitCount" + 1 WHERE id = $1', [id]);
     }

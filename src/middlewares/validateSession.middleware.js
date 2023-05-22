@@ -10,7 +10,7 @@ export async function validateToken(req, res, next) {
         const user = jwt.verify(token, process.env.SECRET_KEY)
         const session = await getSession(token, user)
         res.locals.userId = user
-        if (session.rowCount === 0) return res.sendStatus(409)
+        if (session.rowCount === 0) return res.sendStatus(401)
         next()
     }
     catch (err) {
