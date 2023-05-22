@@ -39,9 +39,7 @@ export async function userMe(req, res) {
     
     const short = await getShortById(userId)
     const user = await getUserById(userId)
-    console.log(user.rows)
     const completeuser = {...user.rows[0], shortenedUrls:short.rows}
-    console.log(completeuser)
     res.status(200).send(completeuser)
   } catch (err) {
     res.status(500).send(err);
