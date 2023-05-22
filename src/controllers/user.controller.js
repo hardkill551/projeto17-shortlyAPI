@@ -1,4 +1,4 @@
-import { insertUser, getUserRepository, getUserById } from "../repositories/user.repository.js";
+import { insertUser, getUserRepository, getUserById, getShortById } from "../repositories/user.repository.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { insertSession } from "../repositories/session.repository.js";
@@ -37,8 +37,12 @@ export async function userMe(req, res) {
   try {
     const userId = res.locals.userId;
     
+    const short = await getShortById(userId)
     const user = await getUserById(userId)
     console.log(user.rows)
+    const completeuser = {...user.rows[0], shortenedUrls:short.rows}
+    console.log(completeuser)
+    
   } catch (err) {
     res.status(500).send(err);
   }
