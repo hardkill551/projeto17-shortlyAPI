@@ -42,7 +42,7 @@ export async function userMe(req, res) {
     console.log(user.rows)
     const completeuser = {...user.rows[0], shortenedUrls:short.rows}
     console.log(completeuser)
-    
+    res.status(200).send(completeuser)
   } catch (err) {
     res.status(500).send(err);
   }
